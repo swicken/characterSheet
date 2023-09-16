@@ -32,15 +32,20 @@ module.exports = mongoose.model('${modelName}', ${modelName}Schema);
     fs.writeFileSync(indexFile, lines.join('\n'));
 
     console.log(`${modelName} model added successfully!`);
-    // Create a new routes file
-    const routesContent = `
+// Create a new routes file
+const routesContent = `
 const express = require('express');
 const router = express.Router();
 const ${modelName} = require('../models/${modelName}');
 
-// GET route
+// GET all route
 router.get('/${modelName.toLowerCase()}', (req, res) => {
-    // TODO: Implement the GET logic
+    // TODO: Implement the GET all logic
+});
+
+// GET by ID route
+router.get('/${modelName.toLowerCase()}/:id', (req, res) => {
+    // TODO: Implement the GET by ID logic
 });
 
 // POST route

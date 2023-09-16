@@ -49,9 +49,8 @@ const characterSchema = new mongoose.Schema({
         tools: [String]
     },
     spells: [{
-        name: String,
-        level: Number,
-        description: String
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Spell'
     }],
     equipment: [{
         name: String,
