@@ -1,48 +1,32 @@
 const mongoose = require('mongoose');
 const connectDB = require('../db');
+const path = require('path');
+const fs = require('fs');
 
-const Class = require('../models/Class');
-const Race = require('../models/Race');
-const Alignment = require('../models/Alignment');
+const models = require('../models');
 
-// Default data
-const classes = [
-    { name: 'Warrior', hitDice: 'd10', primaryAbility: 'Strength' },
-    // ... other classes
-];
+const initDataPath = path.join(__dirname, 'initialData');
 
-const races = [
-    { name: 'Elf', speed: 30, size: 'Medium' },
-    // ... other races
-];
-
-const alignments = [
-    { name: 'Neutral Good', description: 'Does the best that a good person can do.' },
-    // ... other alignments
-];
-
-// Initialize data
 const initializeData = async () => {
     await connectDB();
-    // Check if data exists
-    const classCount = await Class.countDocuments();
-    const raceCount = await Race.countDocuments();
-    const alignmentCount = await Alignment.countDocuments();
 
-    // If no data, initialize
-    if (classCount === 0) {
-        await Class.insertMany(classes);
-        console.log('Classes initialized.');
-    }
+    for (let modelName in models) {
+        const Model = models[modelName];
 
-    if (raceCount === 0) {
-        await Race.insertMany(races);
-        console.log('Races initialized.');
-    }
+        // Check if there's initial data for this model
+        const dataFilePath = path.join(initDataPath, `${modelName}.json`);
+        if (fs.existsSync(dataFilePath)) {
+            const initialData = require(dataFilePath);
 
-    if (alignmentCount === 0) {
-        await Alignment.insertMany(alignments);
-        console.log('Alignments initialized.');
+            // If the collection is empty, seed the data
+            const count = await Model.countDocuments();
+            if (count === 0) {
+                await Model.insertMany(initialData);
+                console.log(`${modelName} initialized.`);
+            } else {
+                console.log(`${modelName} already has data.`);
+            }
+        }
     }
 
     mongoose.connection.close();
