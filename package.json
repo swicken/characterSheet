@@ -7,7 +7,9 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "NODE_ENV=production node index.js",
     "dev": "NODE_ENV=development nodemon index.js",
-    "initDB": "node util/initDB.js"
+    "initDB": "node util/initDB.js",
+    "resetDB": "node util/dropDB.js && node util/initDB.js",
+    "dropDB": "node util/dropDB.js"
   },
   "keywords": [],
   "author": "",
