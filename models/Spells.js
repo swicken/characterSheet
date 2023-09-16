@@ -16,10 +16,11 @@ const SpellsSchema = new mongoose.Schema({
         min: 0, // 0 for cantrips
         max: 9  // 9 for ninth level spells
     },
+    higherLevel: String, // Higher level description, if any,
     school: {
         type: String,
         required: true,
-        enum: ['Abjuration', 'Conjuration', 'Divination', 'Enchantment', 'Evocation', 'Illusion', 'Necromancy', 'Transmutation']
+        enum: ['abjuration', 'conjuration', 'divination', 'enchantment', 'evocation', 'illusion', 'necromancy', 'transmutation']
     },
     castingTime: {
         type: String,
@@ -32,6 +33,8 @@ const SpellsSchema = new mongoose.Schema({
     components: {
         verbal: Boolean,
         somatic: Boolean,
+        raw: String, // This is the raw value of the components field, e.g., "V, S, M (a tiny strip of white cloth)"
+        material: Boolean,
         material: String // This can be the description of the material components or null if none.
     },
     duration: {
@@ -48,7 +51,7 @@ const SpellsSchema = new mongoose.Schema({
     },
     classes: [{
         type: String,
-        enum: ['Bard', 'Cleric', 'Druid', 'Paladin', 'Ranger', 'Sorcerer', 'Warlock', 'Wizard']
+        enum: ['bard', 'cleric', 'druid', 'paladin', 'ranger', 'sorcerer', 'warlock', 'wizard']
     }],
     sourceBook: String, // Source book where the spell is found, e.g., "Player's Handbook"
     page: Number // Page number in the source book
