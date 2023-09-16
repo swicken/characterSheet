@@ -8,9 +8,10 @@ const Character = require('./Character');
 //export all the models
 
 module.exports = {
-    Alignment,
-    Class,
-    Race,
     Character,
+    Class,
+    Alignment,
+    Race,
     //... model exports
 }
+ß
