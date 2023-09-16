@@ -3,7 +3,6 @@ const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const connectDB = require('./db');
 
-dotenv.config();
 
 const app = express();
 
