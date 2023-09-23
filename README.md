@@ -18,7 +18,7 @@ Run the server using `npm run dev`
 ## Helper Scripts
 
 `npm run resetDB` will drop all collections and reinitialize the DB  
-`node util/addModel.js {modelName}` will create an empty model, add it to the index.js of all of the models, and create empty routes for GET/POST/PUT/DELETE  
-`node util/removeModel.js {modelName}` will remove the model, remove it from index.js, and remove associated routes  
+`npm run addModel -- {modelName}` will create an empty model, add it to the index.js of all of the models, and create empty routes for GET/POST/PUT/DELETE  
+`npm run removeModel -- {modelName}` will remove the model, remove it from index.js, and remove associated routes  
 
 If you create a model and wish to populate initial data, add a JSON with an array of the data you wish to add to `util/initialData` and when you initialize the database it will pull that data.  

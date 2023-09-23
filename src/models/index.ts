@@ -1,21 +1,23 @@
-// Imports Start
-import Spells from './Spells';
-import Alignment from './Alignment';
-import Class from './Class';
-import Race from './Race';
-import Character from './Character';
-// Imports End
+import fs from 'fs'
+import path, { dirname } from 'path'
+import { type Model } from 'mongoose'
+import { fileURLToPath } from 'url'
 
 // Define an interface with a string index signature
-interface Models {
-  [key: string]: any;
+type Models = Record<string, Model<any>>
+
+const models: Models = {}
+
+const dirName = dirname(fileURLToPath(import.meta.url))
+
+// Read all files in the current directory
+const files = fs.readdirSync(dirName)
+
+for (const file of files) {
+  if (file !== 'index.ts' && path.extname(file) === '.ts') {
+    const modelName = path.basename(file, '.ts')
+    models[modelName] = (await import(`./${file}`)).default
+  }
 }
 
-// Exports
-export const models: Models = {
-    Spells,
-    Alignment,
-    Class,
-    Race,
-    Character,
-};
+export default models

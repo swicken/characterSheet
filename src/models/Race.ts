@@ -1,19 +1,19 @@
-import mongoose, { Document, Schema, Model } from 'mongoose';
+import mongoose, { type Document, Schema, type Model } from 'mongoose'
 
 interface IRace extends Document {
-  name: string;
-  speed: number;
-  size: string;
+  name: string
+  speed: number
+  size: string
   // ... other race-specific fields ...
 }
 
-const raceSchema: Schema<IRace> = new Schema({
+const raceSchema = new Schema<IRace>({
   name: String,
   speed: Number,
-  size: String,
+  size: String
   // ... other race-specific fields ...
-});
+})
 
-const Race: Model<IRace> = mongoose.model<IRace>('Race', raceSchema);
+const Race: Model<IRace> = mongoose.model<IRace>('Race', raceSchema)
 
-export default Race;
+export default Race

@@ -1,28 +1,25 @@
-import mongoose, { Mongoose } from 'mongoose';
-import dotenv from 'dotenv';
-
-dotenv.config();
+import mongoose, { type Mongoose } from 'mongoose'
 
 // Extract properties from .env
-const DB_HOST: string = process.env.DB_HOST!;
-const DB_USER: string = process.env.DB_USER!;
-const DB_PASS: string = process.env.DB_PASS!;
+const DB_HOST: string = process.env.DB_HOST ?? 'localhost'
+const DB_USER: string = process.env.DB_USER ?? 'admin'
+const DB_PASS: string = process.env.DB_PASS ?? 'admin'
 
-const mongoURI: string = `mongodb://${DB_USER}:${DB_PASS}@${DB_HOST}/characterSheet?authSource=admin`;
+const mongoURI: string = `mongodb://${DB_USER}:${DB_PASS}@${DB_HOST}/characterSheet?authSource=admin`
 
-let db: Mongoose | null = null;
+let db: Mongoose | null = null
 
 const connectDB = async (): Promise<Mongoose | null> => {
-  if (!db) {
+  if (db == null) {
     try {
-      db = await mongoose.connect(mongoURI, {});
-      console.log('DB connected');
+      db = await mongoose.connect(mongoURI, {})
+      console.log('DB connected')
     } catch (error) {
-      console.error('Failed to connect to MongoDB', error);
-      process.exit(1); // Exit with failure
+      console.error('Failed to connect to MongoDB', error)
+      process.exit(1) // Exit with failure
     }
   }
-  return db;
-};
+  return db
+}
 
-export default connectDB;
+export default connectDB

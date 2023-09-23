@@ -1,15 +1,15 @@
-import mongoose, { Document, Model, Schema } from 'mongoose';
+import mongoose, { type Document, type Model, Schema } from 'mongoose'
 
 interface IAlignment extends Document {
-    name: string;
-    description: string;
+  name: string
+  description: string
 }
 
-const alignmentSchema: Schema = new mongoose.Schema({
-    name: String,
-    description: String
-});
+const alignmentSchema = new Schema<IAlignment>({
+  name: { type: String, required: true },
+  description: String
+})
 
-const Alignment: Model<IAlignment> = mongoose.model('Alignment', alignmentSchema);
+const Alignment: Model<IAlignment> = mongoose.model('Alignment', alignmentSchema)
 
-export default Alignment;
+export default Alignment
